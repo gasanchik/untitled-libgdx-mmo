@@ -1,0 +1,3 @@
+sourceCompatibility = JavaVersion.VERSION_16
+sourceSets.main.java.srcDirs = [ "src/" ]
+eclipse.project.name = appName + '-shared'

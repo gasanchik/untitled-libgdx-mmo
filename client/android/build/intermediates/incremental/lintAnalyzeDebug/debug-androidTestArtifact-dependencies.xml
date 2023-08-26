@@ -1,0 +1,41 @@
+<dependencies>
+  <compile
+      roots="D:\Intellij workspace\astrovallium@@:client:android::debug,com.badlogicgames.gdx-controllers:gdx-controllers-android:2.2.1@aar,com.badlogicgames.gdx:gdx-backend-android:1.12.0@aar,D:\Intellij workspace\astrovallium@@:client:core,com.badlogicgames.gdx:gdx-freetype:1.12.0@jar,com.badlogicgames.box2dlights:box2dlights:1.5@jar,D:\Intellij workspace\astrovallium@@:shared,com.badlogicgames.gdx:gdx-box2d:1.12.0@jar,com.badlogicgames.ashley:ashley:1.7.4@jar,com.badlogicgames.gdx:gdx:1.12.0@jar,com.badlogicgames.gdx-controllers:gdx-controllers-core:2.2.1@jar,com.badlogicgames.gdx:gdx-jnigen-loader:2.3.1@jar">
+    <dependency
+        name="D:\Intellij workspace\astrovallium@@:client:android::debug"
+        simpleName=":"/>
+    <dependency
+        name="com.badlogicgames.gdx-controllers:gdx-controllers-android:2.2.1@aar"
+        simpleName="com.badlogicgames.gdx-controllers:gdx-controllers-android"/>
+    <dependency
+        name="com.badlogicgames.gdx:gdx-backend-android:1.12.0@aar"
+        simpleName="com.badlogicgames.gdx:gdx-backend-android"/>
+    <dependency
+        name="D:\Intellij workspace\astrovallium@@:client:core"
+        simpleName=":"/>
+    <dependency
+        name="com.badlogicgames.gdx:gdx-freetype:1.12.0@jar"
+        simpleName="com.badlogicgames.gdx:gdx-freetype"/>
+    <dependency
+        name="com.badlogicgames.box2dlights:box2dlights:1.5@jar"
+        simpleName="com.badlogicgames.box2dlights:box2dlights"/>
+    <dependency
+        name="D:\Intellij workspace\astrovallium@@:shared"
+        simpleName=":"/>
+    <dependency
+        name="com.badlogicgames.gdx:gdx-box2d:1.12.0@jar"
+        simpleName="com.badlogicgames.gdx:gdx-box2d"/>
+    <dependency
+        name="com.badlogicgames.ashley:ashley:1.7.4@jar"
+        simpleName="com.badlogicgames.ashley:ashley"/>
+    <dependency
+        name="com.badlogicgames.gdx:gdx:1.12.0@jar"
+        simpleName="com.badlogicgames.gdx:gdx"/>
+    <dependency
+        name="com.badlogicgames.gdx-controllers:gdx-controllers-core:2.2.1@jar"
+        simpleName="com.badlogicgames.gdx-controllers:gdx-controllers-core"/>
+    <dependency
+        name="com.badlogicgames.gdx:gdx-jnigen-loader:2.3.1@jar"
+        simpleName="com.badlogicgames.gdx:gdx-jnigen-loader"/>
+  </compile>
+</dependencies>

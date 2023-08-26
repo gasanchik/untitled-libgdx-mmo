@@ -1,0 +1,18 @@
+<lint-module
+    format="1"
+    dir="D:\Intellij workspace\astrovallium\client\android"
+    name=":client:android"
+    type="APP"
+    maven="astrovallium.client:android:"
+    gradle="7.4.0"
+    buildFolder="build"
+    bootClassPath="C:\Users\Lala\AppData\Local\Android\Sdk\platforms\android-34\android.jar;C:\Users\Lala\AppData\Local\Android\Sdk\build-tools\34.0.0\core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-34">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

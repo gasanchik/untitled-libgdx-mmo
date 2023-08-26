@@ -1,0 +1,5 @@
+com.hasanchik.game.test.android-androidTest-0 D:\Intellij workspace\astrovallium\client\android\build\generated\res\resValues\androidTest\debug
+com.hasanchik.game.test.android-androidTest-1 D:\Intellij workspace\astrovallium\client\android\build\generated\res\rs\androidTest\debug
+com.hasanchik.game.test.android-mergeDebugAndroidTestResources-2 D:\Intellij workspace\astrovallium\client\android\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.hasanchik.game.test.android-mergeDebugAndroidTestResources-3 D:\Intellij workspace\astrovallium\client\android\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.hasanchik.game.test.android-merged_res-4 D:\Intellij workspace\astrovallium\client\android\build\intermediates\merged_res\debugAndroidTest

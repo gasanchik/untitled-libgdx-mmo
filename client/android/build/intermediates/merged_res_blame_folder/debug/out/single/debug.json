@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "com.hasanchik.game.android-merged_res-15:/drawable-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.hasanchik.game.android-android-16:/drawable-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.hasanchik.game.android-merged_res-15:/drawable-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.hasanchik.game.android-android-16:/drawable-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.hasanchik.game.android-merged_res-15:/drawable-xxhdpi_ic_launcher.png.flat",
+        "source": "com.hasanchik.game.android-android-16:/drawable-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.hasanchik.game.android-merged_res-15:/drawable-hdpi_ic_launcher.png.flat",
+        "source": "com.hasanchik.game.android-android-16:/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.hasanchik.game.android-merged_res-15:/drawable-xhdpi_ic_launcher.png.flat",
+        "source": "com.hasanchik.game.android-android-16:/drawable-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.hasanchik.game.android-merged_res-15:/drawable-anydpi-v26_ic_launcher_foreground.xml.flat",
+        "source": "com.hasanchik.game.android-android-16:/drawable-anydpi-v26/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.hasanchik.game.android-merged_res-15:/drawable-mdpi_ic_launcher.png.flat",
+        "source": "com.hasanchik.game.android-android-16:/drawable-mdpi/ic_launcher.png"
+    }
+]
