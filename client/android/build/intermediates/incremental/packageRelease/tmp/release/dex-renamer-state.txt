@@ -1,4 +1,0 @@
-#Thu Jul 27 14:40:33 CEST 2023
-base.0=D\:\\Intellij workspace\\astrovallium\\client\\android\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

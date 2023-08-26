@@ -35,6 +35,9 @@ allprojects {
 }
 
 project(":client:desktop") {
+    def date = new Date().format('ss-mm-HH-dd-MM-yyyy')
+    buildDir = new File(rootProject.projectDir, 'builds/client/desktop-$')
+
     apply plugin: "java-library"
 
     dependencies {
@@ -58,6 +61,9 @@ project(":client:desktop") {
 }
 
 project(":client:android") {
+    def date = new Date().format('ss-mm-HH-dd-MM-yyyy')
+    buildDir = new File(rootProject.projectDir, 'builds/client/android/build-$date')
+
     apply plugin: "com.android.application"
 
     configurations { natives }
@@ -123,6 +129,9 @@ project(":client:core") {
 }
 
 project(":server:game") {
+    def date = new Date().format('ss-mm-HH-dd-MM-yyyy')
+    buildDir = new File(rootProject.projectDir, "builds/client/desktop/build-$date")
+
     apply plugin: "java-library"
 
     dependencies {
@@ -165,4 +174,31 @@ project(":shared") {
 
         api "com.badlogicgames.ashley:ashley:1.7.4"
     }
+}
+
+
+def date = new Date().format('yyyy-MM-dd-HH-mm-ss')
+
+task buildAndroid(type: GradleBuild) {
+    buildFile = file('client/android/build.gradle')
+    tasks = ['build']
+    startParameter.projectProperties = [buildDate: date]
+}
+
+task buildDesktop(type: GradleBuild) {
+    buildFile = file('client/desktop/build.gradle')
+    tasks = ['build']
+    startParameter.projectProperties = [buildDate: date]
+}
+
+task buildServer(type: GradleBuild) {
+    buildFile = file('server/game/build.gradle')
+    tasks = ['build']
+    startParameter.projectProperties = [buildDate: date]
+}
+
+task buildAll {
+    //dependsOn buildAndroid
+    dependsOn buildDesktop
+    dependsOn buildServer
 }

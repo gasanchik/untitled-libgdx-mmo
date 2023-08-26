@@ -1,3 +1,7 @@
+if (project.hasProperty('buildDate')) {
+    buildDir = new File(rootProject.projectDir, 'builds/builds/' + project.property('buildDate') + '/android')
+}
+
 android {
     namespace "com.hasanchik.game"
     buildToolsVersion "34.0.0"

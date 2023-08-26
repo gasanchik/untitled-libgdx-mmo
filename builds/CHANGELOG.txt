@@ -1,0 +1,20 @@
+USE $newVersion$ ABBREVIATION TO INSERT NEW VERSION
+Version naming system:
+Number 1: (0-3) in development/alpha/beta/release
+Number 2: major updates
+Number 3: minor updates
+Number 4: bugfixes/hotfixes/small changes
+
+??:?? ??/??/2023
+v0.0.0.0
+-Transportation of Box2D objects between client and server
+
+2:10 am 25/08/2023
+v0.0.0.1
+-Start of the ECS put in place
+-Bug fixed where shapes weren't being rasterized properly in BodyMap
+
+6:35 pm 26/08/2023
+v0.0.1.0
+-Ashley ECS fully implemented
+

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<incidents format="6" by="lint 7.4.0" type="partial_results">
-    <map id="UnusedResources">
-        <entry
-            name="model"
-            string="color[ic_background_color(U)],drawable[ic_launcher_foreground(U),ic_launcher(U)],string[app_name(U)],style[AppTheme(U)];2^0^1,4^0;;;"/>
-    </map>
-
-</incidents>
