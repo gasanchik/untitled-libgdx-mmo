@@ -177,28 +177,34 @@ project(":shared") {
 }
 
 
-def date = new Date().format('yyyy-MM-dd-HH-mm-ss')
+def buildName =  "build-" + new Date().format('h-mma-dd_MM_yyyy')
 
 task buildAndroid(type: GradleBuild) {
-    buildFile = file('client/android/build.gradle')
+    dir = file('client/android')
     tasks = ['build']
-    startParameter.projectProperties = [buildDate: date]
+    startParameter.projectProperties = [buildName: buildName]
 }
 
 task buildDesktop(type: GradleBuild) {
-    buildFile = file('client/desktop/build.gradle')
+    dir = file('client/desktop')
     tasks = ['build']
-    startParameter.projectProperties = [buildDate: date]
+    startParameter.projectProperties = [buildName: buildName]
 }
 
 task buildServer(type: GradleBuild) {
-    buildFile = file('server/game/build.gradle')
+    dir = file('server/game')
     tasks = ['build']
-    startParameter.projectProperties = [buildDate: date]
+    startParameter.projectProperties = [buildName: buildName]
 }
 
-task buildAll {
-    //dependsOn buildAndroid
+task makeNewVersion {
     dependsOn buildDesktop
     dependsOn buildServer
+
+    doLast {
+        def changelogFile = file('CHANGELOG.txt')
+        def time = new Date().format('h-mma-dd_MM_yyyy')
+        def version = 'v_._._._'
+        changelogFile.append("\n${time}\n${version}\n")
+    }
 }

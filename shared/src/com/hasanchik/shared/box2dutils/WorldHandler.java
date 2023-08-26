@@ -1,11 +1,14 @@
 package com.hasanchik.shared.box2dutils;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.hasanchik.shared.box2dutils.bodybuilders.Box2DBodyBuilder;
 import com.hasanchik.shared.box2dutils.bodybuilders.Box2DBodyBuilderDirector;
+import com.hasanchik.shared.ecs.Components;
+import com.hasanchik.shared.ecs.MyAshleyEngine;
 import com.hasanchik.shared.misc.BodyMap;
 import com.hasanchik.shared.misc.BodyUserData;
 import lombok.Getter;
@@ -68,10 +71,10 @@ public class WorldHandler {
     }
 
     public WorldHandler(float fixedTimeStep, boolean refreshBodyMap) {
-        this(new Vector2(0, 0), true, 6, 2, fixedTimeStep, refreshBodyMap);
+        this(new Vector2(0, -9.81f), true, 6, 2, fixedTimeStep, refreshBodyMap);
     }
     //grav = -9.81f
-    public void createTestScene() {
+    public void createTestScene(MyAshleyEngine myAshleyEngine) {
         //Create a circle
         Body body = putBodyInWorld(Box2DBodyBuilderDirector.getCircle(new Vector2(2.3f, 5), 3f));
 
@@ -86,9 +89,21 @@ public class WorldHandler {
         body.createFixture(fixtureDef);
         chainShape.dispose();
 
-        //Create a player
+        Entity entity = new Entity();
+        Components.Box2DComponent box2DComponent = new Components.Box2DComponent();
+        box2DComponent.body = body;
+        entity.add(box2DComponent);
+        myAshleyEngine.addEntity(entity);
+
         body = putBodyInWorld(Box2DBodyBuilderDirector.getDefaultSquare());
+        entity = new Entity();
+        box2DComponent = new Components.Box2DComponent();
+        box2DComponent.body = body;
+        entity.add(box2DComponent);
+        myAshleyEngine.addEntity(entity);
+        //Create a player
         player = body;
+
 
         //Create platform
         body = putBodyInWorld(
@@ -98,6 +113,11 @@ public class WorldHandler {
                 new Vector2(4f, 0.5f) //x = 2.9
             )
         );
+        entity = new Entity();
+        box2DComponent = new Components.Box2DComponent();
+        box2DComponent.body = body;
+        entity.add(box2DComponent);
+        myAshleyEngine.addEntity(entity);
 
         //Create a room
         body = putBodyInWorld(
@@ -107,6 +127,11 @@ public class WorldHandler {
                 new Vector2[]{new Vector2(0f, 0f), new Vector2(8f, 0f), new Vector2(8f, -14f), new Vector2(0f, -14f), new Vector2(0f, 0f)}
             )
         );
+        entity = new Entity();
+        box2DComponent = new Components.Box2DComponent();
+        box2DComponent.body = body;
+        entity.add(box2DComponent);
+        myAshleyEngine.addEntity(entity);
     }
 
     public void step() {

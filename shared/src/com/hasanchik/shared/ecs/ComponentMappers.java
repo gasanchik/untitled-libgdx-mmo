@@ -1,4 +1,4 @@
-package ecs;
+package com.hasanchik.shared.ecs;
 
 import com.badlogic.ashley.core.ComponentMapper;
 

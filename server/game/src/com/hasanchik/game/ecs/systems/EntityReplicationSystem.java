@@ -10,11 +10,11 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.hasanchik.game.GameRoomInstance;
 import com.hasanchik.game.networking.ServerNetworkingHandler;
 import com.hasanchik.shared.box2dutils.WorldHandler;
+import com.hasanchik.shared.ecs.ComponentMappers;
+import com.hasanchik.shared.ecs.Components;
+import com.hasanchik.shared.ecs.ListenerPrioritySystem;
 import com.hasanchik.shared.misc.BodyUserData;
-import ecs.ComponentMappers;
-import ecs.Components;
 import com.hasanchik.shared.networking.Packets;
-import ecs.ListenerPrioritySystem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -46,11 +46,12 @@ public class EntityReplicationSystem extends IntervalSystem implements ListenerP
     protected void updateInterval() {
         entityList = context.getEngine().getEntityArrayList();
 
-        ArrayList<Body> bodiesList = worldHandler.getBodyMap().getBodiesInArea(new Rectangle(-4.5f, -8f, 9f, 16f));
+        ArrayList<Body> bodiesList = worldHandler.getBodyMap().getBodiesInArea(new Rectangle(-4.5f/2, -8f/2, 9f/2, 16f/2));
 
         bodiesList.forEach(body -> {
             synchronized (body) {
                 BodyUserData bodyUserData = (BodyUserData) body.getUserData();
+
                 if(bodyUserData == null || body == null || entityList.get(bodyUserData.entityID) == null) {
                     return;
                 }
@@ -67,6 +68,33 @@ public class EntityReplicationSystem extends IntervalSystem implements ListenerP
                         .forEach(playerName -> serverNetworkingHandler.sendUDPPacket(playerName, bodyUpdatePacket));
             }
         });
+
+
+/*        entityList.forEach(entity -> {
+            if (entity == null || ComponentMappers.box2DComponentMapper.has(entity) == false) {
+                return;
+            }
+            Body body = ComponentMappers.box2DComponentMapper.get(entity).body;
+
+            synchronized (body) {
+                BodyUserData bodyUserData = (BodyUserData) body.getUserData();
+                logger.info(bodyUserData.entityID);
+                if(bodyUserData == null || body == null || entityList.get(bodyUserData.entityID) == null) {
+                    return;
+                }
+
+                Packets.BodyUpdatePacket bodyUpdatePacket = new Packets.BodyUpdatePacket();
+                bodyUpdatePacket.entityID = bodyUserData.entityID;
+                bodyUpdatePacket.transformation = body.getTransform();
+                bodyUpdatePacket.angularVelocity = body.getAngularVelocity();
+                bodyUpdatePacket.linearVelocity = body.getLinearVelocity();
+
+                serverNetworkingHandler
+                        .getPlayerNameToRoomID()
+                        .keySet()
+                        .forEach(playerName -> serverNetworkingHandler.sendUDPPacket(playerName, bodyUpdatePacket));
+            }
+        });*/
     }
 
     @Override
@@ -90,6 +118,7 @@ public class EntityReplicationSystem extends IntervalSystem implements ListenerP
     }
 
     public void replicateNewEntityToClient(String playerName, Entity entity) {
+        logger.info("Sending entity with entityID " + ComponentMappers.entityComponentMapper.get(entity).entityID);
         Packets.NewEntityPacket newEntityPacket = new Packets.NewEntityPacket();
         newEntityPacket.entity = entity;
         serverNetworkingHandler.sendTCPPacket(playerName, newEntityPacket);

@@ -1,11 +1,11 @@
-package ecs.Systems;
+package com.hasanchik.shared.ecs.Systems;
 
 import com.badlogic.ashley.core.*;
 import com.hasanchik.shared.box2dutils.WorldHandler;
 import com.hasanchik.shared.misc.BodyUserData;
-import ecs.ComponentMappers;
-import ecs.Components;
-import ecs.ListenerPrioritySystem;
+import com.hasanchik.shared.ecs.ComponentMappers;
+import com.hasanchik.shared.ecs.Components;
+import com.hasanchik.shared.ecs.ListenerPrioritySystem;
 
 public class Box2DBodySystem extends EntitySystem implements ListenerPrioritySystem {
     private final WorldHandler worldHandler;

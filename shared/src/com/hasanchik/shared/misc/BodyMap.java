@@ -144,8 +144,8 @@ public class BodyMap extends ConcurrentHashMap<Vector2, List<Body>> {
     public boolean checkIfRefreshBody(Body body, boolean refreshStaticBodies) {
         synchronized (body) {
             return (
-                !body.isAwake() &&
-                !(refreshStaticBodies && body.getType().equals(BodyDef.BodyType.StaticBody)));
+                body.isAwake() &&
+                        !(refreshStaticBodies && body.getType().equals(BodyDef.BodyType.StaticBody)));
         }
     }
 

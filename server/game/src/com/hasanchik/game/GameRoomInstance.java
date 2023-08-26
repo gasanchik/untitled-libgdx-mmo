@@ -32,16 +32,14 @@ public class GameRoomInstance implements Runnable {
     private final PlayerSystem playerSystem;
     private final EntityReplicationSystem entityReplicationSystem;
 
-    //playerName, body
-    //private final ConcurrentHashMap<String, Body> playerBodies;
-
     public GameRoomInstance(MyGameServer context) {
         this.context = context;
-        //worldHandler.createTestScene();
 
         this.engine = new MyServerAshleyEngine(this, ECS_UPDATES_PER_SECOND);
         this.playerSystem = engine.getSystem(PlayerSystem.class);
         this.entityReplicationSystem = engine.getSystem(EntityReplicationSystem.class);
+
+        worldHandler.createTestScene(engine);
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 import com.hasanchik.game.GameRoomInstance;
 import com.hasanchik.game.MyGameServer;
-import ecs.ComponentMappers;
 import com.hasanchik.shared.networking.DTOsRegister;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
@@ -119,7 +118,6 @@ public class ServerNetworkingHandler implements Runnable {
                         return;
                     }
 
-                    logger.info("Sending entity with entityID " + ComponentMappers.entityComponentMapper.get(entity).entityID);
                     gameRoomInstance.getEntityReplicationSystem().replicateNewEntityToClient(playerName, entity);
                 });
             }

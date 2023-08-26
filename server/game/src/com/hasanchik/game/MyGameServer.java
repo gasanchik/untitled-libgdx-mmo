@@ -24,7 +24,7 @@ public class MyGameServer extends Game {
     private static final Logger logger = LogManager.getLogger(MyGameServer.class);
     public static final int GAME_ROOMS_CAPACITY = 50;
 
-    //Graphics related things are for debugging only
+    //All graphics related things are for debugging only
     private FitViewport viewport;
     private ServerNetworkingHandler serverNetworkingHandler;
     private ArrayList<GameRoomInstance> gameRooms;
@@ -60,7 +60,6 @@ public class MyGameServer extends Game {
         viewport.apply();
         ScreenUtils.clear(0, 0, 0, 1);
 
-        //Creates a small memory leak
         gameRooms
                 .stream()
                 .filter(Objects::nonNull)

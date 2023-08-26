@@ -1,5 +1,5 @@
-include ":client:desktop",
-        ":client:android",
-        ":client:core",
-        ":server:game",
-        ":shared"
+include ":client:desktop"
+include ":client:android"
+include ":client:core"
+include ":server:game"
+include ":shared"

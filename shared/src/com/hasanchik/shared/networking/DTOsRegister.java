@@ -7,7 +7,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.hasanchik.shared.box2dutils.bodybuilders.Box2DBodyBuilder;
 import com.hasanchik.shared.box2dutils.bodybuilders.Box2DFixtureBuilder;
-import ecs.Components;
+import com.hasanchik.shared.ecs.Components;
 import com.hasanchik.shared.misc.BodyUserData;
 import com.hasanchik.shared.networking.serializers.Box2DShapeSerializer;
 import com.hasanchik.shared.networking.serializers.EntitySerializer;

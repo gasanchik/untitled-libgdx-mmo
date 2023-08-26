@@ -9,7 +9,7 @@ import com.hasanchik.game.interfaces.callbacks.ServerConnectedCallback;
 import com.hasanchik.game.interfaces.callbacks.ServerDisconnectedCallback;
 import com.hasanchik.game.utils.GDXDialogsFacade;
 import com.hasanchik.shared.box2dutils.WorldHandler;
-import ecs.Components;
+import com.hasanchik.shared.ecs.Components;
 import com.hasanchik.shared.networking.Packets;
 import de.tomgrill.gdxdialogs.core.GDXDialogs;
 import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;

@@ -1,5 +1,5 @@
-if (project.hasProperty('buildDate')) {
-    buildDir = new File(rootProject.projectDir, 'builds/builds/' + project.property('buildDate') + '/desktop')
+if (project.hasProperty('buildName')) {
+    buildDir = new File(rootProject.projectDir, 'builds/' + project.property('buildName') + '/desktop')
 }
 
 sourceCompatibility = JavaVersion.VERSION_16

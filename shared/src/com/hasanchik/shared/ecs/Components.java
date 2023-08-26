@@ -1,4 +1,4 @@
-package ecs;
+package com.hasanchik.shared.ecs;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.esotericsoftware.kryonet.Connection;
