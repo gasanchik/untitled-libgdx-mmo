@@ -12,7 +12,6 @@ import java.util.stream.IntStream;
 public class Box2DShapeJsonSerializer {
     //TODO: implement edge shape
     private static final Logger logger = LogManager.getLogger(Box2DShapeJsonSerializer.class);
-    private static final Gson gson = new Gson();
 
     public static Gson getGson() {
         GsonBuilder gsonBuilder = new GsonBuilder()
@@ -43,7 +42,7 @@ public class Box2DShapeJsonSerializer {
 
     private static class CircleShapeSerializer implements JsonSerializer<CircleShape> {
         @Override
-        public JsonElement serialize(CircleShape circleShape, Type typeOfSrc, JsonSerializationContext context) {
+        public JsonElement serialize(CircleShape circleShape, Type sourceType, JsonSerializationContext context) {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("shapeType", "circle");
             jsonObject.addProperty("radius", circleShape.getRadius());
@@ -54,7 +53,7 @@ public class Box2DShapeJsonSerializer {
 
     private static class CircleShapeDeserializer implements JsonDeserializer<CircleShape> {
         @Override
-        public CircleShape deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public CircleShape deserialize(JsonElement json, Type typeToDeserializeInto, JsonDeserializationContext context) throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
             CircleShape circleShape = new CircleShape();
             circleShape.setRadius(jsonObject.get("radius").getAsFloat());
@@ -65,7 +64,7 @@ public class Box2DShapeJsonSerializer {
 
     private static class PolygonShapeSerializer implements JsonSerializer<PolygonShape> {
         @Override
-        public JsonElement serialize(PolygonShape polygonShape, Type typeOfSrc, JsonSerializationContext context) {
+        public JsonElement serialize(PolygonShape polygonShape, Type sourceType, JsonSerializationContext context) {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("shapeType", "polygon");
             jsonObject.addProperty("radius", polygonShape.getRadius());
@@ -84,7 +83,7 @@ public class Box2DShapeJsonSerializer {
 
     private static class PolygonShapeDeserializer implements JsonDeserializer<PolygonShape> {
         @Override
-        public PolygonShape deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public PolygonShape deserialize(JsonElement json, Type typeToDeserializeInto, JsonDeserializationContext context) throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
             PolygonShape polygonShape = new PolygonShape();
             polygonShape.setRadius(jsonObject.get("radius").getAsFloat());
@@ -95,7 +94,7 @@ public class Box2DShapeJsonSerializer {
 
     private static class ChainShapeSerializer implements JsonSerializer<ChainShape> {
         @Override
-        public JsonElement serialize(ChainShape chainShape, Type typeOfSrc, JsonSerializationContext context) {
+        public JsonElement serialize(ChainShape chainShape, Type sourceType, JsonSerializationContext context) {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("shapeType", "chain");
             jsonObject.addProperty("radius", chainShape.getRadius());
@@ -115,7 +114,7 @@ public class Box2DShapeJsonSerializer {
 
     private static class ChainShapeDeserializer implements JsonDeserializer<ChainShape> {
         @Override
-        public ChainShape deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public ChainShape deserialize(JsonElement json, Type typeToDeserializeInto, JsonDeserializationContext context) throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
             ChainShape chainShape = new ChainShape();
             chainShape.setRadius(jsonObject.get("radius").getAsFloat());
