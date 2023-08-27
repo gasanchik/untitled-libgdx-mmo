@@ -12,7 +12,7 @@ import com.hasanchik.shared.ecs.Components;
 import com.hasanchik.shared.ecs.MyAshleyEngine;
 import com.hasanchik.shared.misc.BodyUserData;
 import com.hasanchik.shared.misc.FixedTimeStepExecutor;
-import com.hasanchik.shared.misc.serializers.Box2DBodyJsonSerializer;
+import com.hasanchik.shared.misc.serializers.Box2DShapeJsonSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
@@ -82,13 +82,13 @@ public class WorldHandler {
         box2DBodyBuilder.addFixture(fixtureDef);
         box2DBodyBuilder.finish();
 
-        Gson gson = Box2DBodyJsonSerializer.getGson();
+        Gson gson = Box2DShapeJsonSerializer.getGson();
         String json = gson.toJson(box2DBodyBuilder);
+        logger.info(json);
         box2DBodyBuilder = gson.fromJson(json, Box2DBodyBuilder.class);
 
         Entity entity = new Entity();
         Components.Box2DComponent box2DComponent = new Components.Box2DComponent();
-        //box2DComponent.body = body;
         box2DComponent.box2DBodyBuilder = box2DBodyBuilder;
         entity.add(box2DComponent);
         myAshleyEngine.addEntity(entity);
