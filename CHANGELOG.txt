@@ -23,7 +23,8 @@ v0.0.1.0
 v0.0.1.1
 -Fixed bug relating to BodyMap#checkIfRefreshBody
 
-5-30pm-27_08_2023
+27_08_2023-17-55
 v0.0.1.2
 -Refactoring
--Incorporating MyMap into code
+-Incorporating InfiniteEntityMap into code
+-Changes in build and changelog dating system

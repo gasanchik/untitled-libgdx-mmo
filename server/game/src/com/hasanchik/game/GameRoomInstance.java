@@ -5,7 +5,7 @@ import com.hasanchik.game.ecs.systems.EntityReplicationSystem;
 import com.hasanchik.game.ecs.systems.PlayerSystem;
 import com.hasanchik.game.networking.ServerNetworkingHandler;
 import com.hasanchik.shared.box2dutils.WorldHandler;
-import com.hasanchik.shared.map.MyMap;
+import com.hasanchik.shared.map.InfiniteEntityMap;
 import com.hasanchik.shared.misc.DefaultThreadFactory;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +28,7 @@ public class GameRoomInstance implements Runnable {
 
     private final ServerNetworkingHandler serverNetworkingHandler = ServerNetworkingHandler.getInstanceIfExists();
 
-    private final MyMap map = new MyMap(new WorldHandler(PHYSICS_UPDATES_PER_SECOND));
+    private final InfiniteEntityMap map = new InfiniteEntityMap(new WorldHandler(PHYSICS_UPDATES_PER_SECOND));
     private final WorldHandler worldHandler = map.getWorldHandler();
 
     private final MyServerAshleyEngine engine;
@@ -59,7 +59,7 @@ public class GameRoomInstance implements Runnable {
             }
         }, 0,  (long) (PHYSICS_UPDATES_PER_SECOND*1000L), TimeUnit.MILLISECONDS);
 
-        //MyMap thread and ecs thread, keep them separate
+        //InfiniteEntityMap thread and ecs thread, keep them separate
         executorService.scheduleAtFixedRate(() -> {
             try {
                 engine.update();

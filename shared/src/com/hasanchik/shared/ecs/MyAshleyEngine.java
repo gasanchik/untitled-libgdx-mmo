@@ -4,8 +4,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
+import com.hasanchik.shared.map.InfiniteEntityMap;
 import com.hasanchik.shared.map.MapLayer;
-import com.hasanchik.shared.map.MyMap;
 import com.hasanchik.shared.misc.FixedTimeStepExecutor;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
@@ -19,13 +19,13 @@ public abstract class MyAshleyEngine extends PooledEngine {
 
     private final FixedTimeStepExecutor fixedTimeStepExecutor;
 
-    private final MyMap map;
+    private final InfiniteEntityMap map;
 
     public void update() {
         fixedTimeStepExecutor.update(super::update);
     }
 
-    public MyAshleyEngine(float fixedTimeStep, MyMap map) {
+    public MyAshleyEngine(float fixedTimeStep, InfiniteEntityMap map) {
         super();
 
         this.fixedTimeStepExecutor = new FixedTimeStepExecutor(fixedTimeStep);

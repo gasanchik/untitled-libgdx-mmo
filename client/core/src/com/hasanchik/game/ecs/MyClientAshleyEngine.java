@@ -3,7 +3,7 @@ package com.hasanchik.game.ecs;
 import com.hasanchik.game.MyClientGame;
 import com.hasanchik.shared.ecs.MyAshleyEngine;
 import com.hasanchik.shared.ecs.Systems.Box2DBodySystem;
-import com.hasanchik.shared.map.MyMap;
+import com.hasanchik.shared.map.InfiniteEntityMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +12,7 @@ public class MyClientAshleyEngine extends MyAshleyEngine {
 
     private final MyClientGame context;
 
-    public MyClientAshleyEngine(MyClientGame context, float fixedTimeStep, MyMap map) {
+    public MyClientAshleyEngine(MyClientGame context, float fixedTimeStep, InfiniteEntityMap map) {
         super(fixedTimeStep, map);
 
         this.context = context;

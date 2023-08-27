@@ -8,12 +8,12 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 
-public class MyMapLoader extends AsynchronousAssetLoader<MyMap, MyMapLoader.MyMapParameters> {
-    static public class MyMapParameters extends AssetLoaderParameters<MyMap> {
+public class InfiniteEntityMapLoader extends AsynchronousAssetLoader<InfiniteEntityMap, InfiniteEntityMapLoader.MyMapParameters> {
+    static public class MyMapParameters extends AssetLoaderParameters<InfiniteEntityMap> {
     }
 
     //TODO: implement this class
-    public MyMapLoader(FileHandleResolver resolver) {
+    public InfiniteEntityMapLoader(FileHandleResolver resolver) {
         super(resolver);
     }
 
@@ -28,7 +28,7 @@ public class MyMapLoader extends AsynchronousAssetLoader<MyMap, MyMapLoader.MyMa
     }
 
     @Override
-    public MyMap loadSync(AssetManager manager, String fileName, FileHandle file, MyMapParameters parameter) {
+    public InfiniteEntityMap loadSync(AssetManager manager, String fileName, FileHandle file, MyMapParameters parameter) {
         return null;
     }
 }

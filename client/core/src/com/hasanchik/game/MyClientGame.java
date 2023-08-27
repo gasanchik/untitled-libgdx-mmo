@@ -16,8 +16,8 @@ import com.hasanchik.game.networking.ClientNetworkingHandler;
 import com.hasanchik.game.screens.AbstractScreen;
 import com.hasanchik.game.screens.ScreenType;
 import com.hasanchik.shared.box2dutils.WorldHandler;
-import com.hasanchik.shared.map.MyMap;
-import com.hasanchik.shared.map.MyMapLoader;
+import com.hasanchik.shared.map.InfiniteEntityMap;
+import com.hasanchik.shared.map.InfiniteEntityMapLoader;
 import com.hasanchik.shared.networking.Packets;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
@@ -37,7 +37,7 @@ public class MyClientGame extends Game implements Disposable {
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
 
-	private MyMap map;
+	private InfiniteEntityMap map;
 	private MyClientAshleyEngine engine;
 	private AssetManager assetManager;
 
@@ -54,11 +54,11 @@ public class MyClientGame extends Game implements Disposable {
 		viewport = new FitViewport(9, 16, camera);
 		spriteBatch = new SpriteBatch();
 
-		map = new MyMap(new WorldHandler(PHYSICS_UPDATES_PER_SECOND));
+		map = new InfiniteEntityMap(new WorldHandler(PHYSICS_UPDATES_PER_SECOND));
 		engine = new MyClientAshleyEngine(this, ECS_UPDATES_PER_SECOND, map);
 
 		assetManager = new AssetManager();
-		assetManager.setLoader(MyMap.class, new MyMapLoader(new InternalFileHandleResolver()));
+		assetManager.setLoader(InfiniteEntityMap.class, new InfiniteEntityMapLoader(new InternalFileHandleResolver()));
 
 		ClientNetworkingHandler.getInstance(this, "192.168.2.14", 38442, 38443).init().run();
 		setScreen(ScreenType.MAINMENU);

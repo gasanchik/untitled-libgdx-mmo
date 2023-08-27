@@ -4,16 +4,16 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Disposable;
-import com.hasanchik.shared.map.MyMap;
+import com.hasanchik.shared.map.InfiniteEntityMap;
 import lombok.Getter;
 import lombok.Setter;
 
 //Nope, this class possibly couldn't be based off of another one, no nope nein nuh uh
 @Getter
-public class MyMapRenderer implements Disposable {
+public class InfiniteEntityMapRenderer implements Disposable {
     //TODO: implement this class
     @Setter
-    private MyMap map;
+    private InfiniteEntityMap map;
 
     private final SpriteBatch spriteBatch;
 
@@ -22,15 +22,15 @@ public class MyMapRenderer implements Disposable {
 
     private final float box2DUnitScale;
 
-    public MyMapRenderer(OrthographicCamera camera, float box2DUnitScale, SpriteBatch spriteBatch) {
+    public InfiniteEntityMapRenderer(OrthographicCamera camera, float box2DUnitScale, SpriteBatch spriteBatch) {
         this.camera = camera;
         this.spriteBatch = spriteBatch;
 
         this.box2DUnitScale = box2DUnitScale;
     }
 
-    public void setMap() {
-
+    public void setMap(InfiniteEntityMap map) {
+        this.map = map;
     }
 
     public void setView (OrthographicCamera camera) {

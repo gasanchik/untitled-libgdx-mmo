@@ -5,7 +5,7 @@ import com.hasanchik.game.ecs.systems.EntityReplicationSystem;
 import com.hasanchik.game.ecs.systems.PlayerSystem;
 import com.hasanchik.shared.ecs.MyAshleyEngine;
 import com.hasanchik.shared.ecs.Systems.Box2DBodySystem;
-import com.hasanchik.shared.map.MyMap;
+import com.hasanchik.shared.map.InfiniteEntityMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +14,7 @@ public class MyServerAshleyEngine extends MyAshleyEngine {
 
     private final GameRoomInstance context;
 
-    public MyServerAshleyEngine(GameRoomInstance context, float fixedTimeStep, MyMap map) {
+    public MyServerAshleyEngine(GameRoomInstance context, float fixedTimeStep, InfiniteEntityMap map) {
         super(fixedTimeStep, map);
 
         this.context = context;

@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.hasanchik.game.MyClientGame;
 import com.hasanchik.game.networking.ClientNetworkingHandler;
 import com.hasanchik.game.utils.GDXDialogsFacade;
-import com.hasanchik.shared.map.MyMap;
+import com.hasanchik.shared.map.InfiniteEntityMap;
 import com.hasanchik.shared.misc.DefaultThreadFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +19,7 @@ public class LoadingScreen extends AbstractScreen {
         super(context);
 
         this.assetManager = context.getAssetManager();
-        assetManager.load("assets/maps/map.json", MyMap.class);
+        assetManager.load("assets/maps/map.json", InfiniteEntityMap.class);
     }
 
     @Override
@@ -43,9 +43,7 @@ public class LoadingScreen extends AbstractScreen {
         ScreenUtils.clear(0, 1, 0, 1);
 
         if (assetManager.update()) {
-            Thread networkingThread = new DefaultThreadFactory().newThread(() -> {
-                ClientNetworkingHandler.getInstanceIfExists().connectToServer();
-            });
+            Thread networkingThread = new DefaultThreadFactory().newThread(() -> ClientNetworkingHandler.getInstanceIfExists().connectToServer());
             networkingThread.start();
         }
     }

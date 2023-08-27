@@ -12,7 +12,7 @@ import com.hasanchik.game.networking.ServerNetworkingHandler;
 import com.hasanchik.shared.ecs.ComponentMappers;
 import com.hasanchik.shared.ecs.Components;
 import com.hasanchik.shared.ecs.ListenerPrioritySystem;
-import com.hasanchik.shared.map.MyMap;
+import com.hasanchik.shared.map.InfiniteEntityMap;
 import com.hasanchik.shared.misc.BodyUserData;
 import com.hasanchik.shared.networking.Packets;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +28,7 @@ public class EntityReplicationSystem extends IntervalSystem implements ListenerP
 
     private final GameRoomInstance context;
     private final ServerNetworkingHandler serverNetworkingHandler;
-    private final MyMap map;
+    private final InfiniteEntityMap map;
 
     private List<Entity> entityList;
 

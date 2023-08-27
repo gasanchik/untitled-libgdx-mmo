@@ -3,8 +3,6 @@ package com.hasanchik.shared.map;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Disposable;
 import com.hasanchik.shared.box2dutils.WorldHandler;
 import com.hasanchik.shared.ecs.ComponentMappers;
 import com.hasanchik.shared.ecs.Components;
@@ -15,24 +13,21 @@ import java.util.Collections;
 
 import static com.hasanchik.shared.misc.Constants.MAX_ENTITIES;
 
+//A class that holds entities in an infinite space and multiple layers
 @Getter
-public class MyMap extends Map {
-    //TODO: implement this class
-    private Array<? extends Disposable> ownedResources;
-
-    //Ordered, all entities
+public class InfiniteEntityMap extends Map {
     private final ArrayList<Entity> entityArrayList = new ArrayList<>(Collections.nCopies(MAX_ENTITIES, null));
-    //Yes, i know, most of the indexes of this array are not initialized
+    //Yes, i know, most of the indexes of these arraylists are null
     private final ArrayList<Entity>[] mapLayers = new ArrayList[MapLayer.values().length];
     //Use this hashmap when getting things in an area or in a position
     private final BodyMap bodyMap = new BodyMap(3f);
     private final WorldHandler worldHandler;
 
-    public MyMap(WorldHandler worldHandler) {
+    public InfiniteEntityMap(WorldHandler worldHandler) {
         this.worldHandler = worldHandler;
 
         for (int i = 0; i < mapLayers.length; i++) {
-            mapLayers[i] = new ArrayList<Entity>(Collections.nCopies(MAX_ENTITIES, null));
+            mapLayers[i] = new ArrayList<>(Collections.nCopies(MAX_ENTITIES, null));
         }
     }
 
@@ -42,10 +37,6 @@ public class MyMap extends Map {
             bodyMap.refresh(world);
         }
         worldHandler.update();
-    }
-
-    public void setOwnedResources (Array<? extends Disposable> resources) {
-        this.ownedResources = resources;
     }
 
     public synchronized void setEntity(Entity entity) {
@@ -63,10 +54,5 @@ public class MyMap extends Map {
     @Override
     public void dispose () {
         worldHandler.dispose();
-        if (ownedResources != null) {
-            for (Disposable resource : ownedResources) {
-                resource.dispose();
-            }
-        }
     }
 }
