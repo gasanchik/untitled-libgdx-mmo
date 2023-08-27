@@ -1,9 +1,13 @@
-USE $newVersion$ ABBREVIATION TO INSERT NEW VERSION
 Version naming system:
 Number 1: (0-3) indev/alpha/beta/release
 Number 2: major updates
 Number 3: minor updates
 Number 4: bugfixes/hotfixes/small changes
+
+When referencing methods and fields and inner classes, do it like so:
+Methods: Class#method()
+Fields: Class#field
+Inner class:Class$InnerClass
 
 ??-??-??_??_2023
 v0.0.0.0
@@ -21,7 +25,7 @@ v0.0.1.0
 
 10-31pm-26_08_2023
 v0.0.1.1
--Fixed bug relating to BodyMap#checkIfRefreshBody
+-Fixed bug relating to BodyMap#checkIfRefreshBody()
 
 27_08_2023-17-55
 v0.0.1.2
