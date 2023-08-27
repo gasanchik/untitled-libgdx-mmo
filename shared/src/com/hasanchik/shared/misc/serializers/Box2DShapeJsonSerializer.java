@@ -32,16 +32,12 @@ public class Box2DShapeJsonSerializer {
         public Shape deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
             String type = jsonObject.get("shapeType").getAsString();
-            switch (type) {
-                case "circle":
-                    return context.deserialize(json, CircleShape.class);
-                case "polygon":
-                    return context.deserialize(json, PolygonShape.class);
-                case "chain":
-                    return context.deserialize(json, ChainShape.class);
-                default:
-                    throw new IllegalArgumentException("Unsupported shape type: " + type);
-            }
+            return switch (type) {
+                case "circle" -> context.deserialize(json, CircleShape.class);
+                case "polygon" -> context.deserialize(json, PolygonShape.class);
+                case "chain" -> context.deserialize(json, ChainShape.class);
+                default -> throw new IllegalArgumentException("Unsupported shape type: " + type);
+            };
         }
     }
 
