@@ -1,9 +1,11 @@
 package com.hasanchik.game.screens;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.hasanchik.game.MyClientGame;
 import com.hasanchik.game.networking.ClientNetworkingHandler;
 import com.hasanchik.game.utils.GDXDialogsFacade;
+import com.hasanchik.shared.map.MyMap;
 import com.hasanchik.shared.misc.DefaultThreadFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,16 +13,18 @@ import org.apache.logging.log4j.Logger;
 public class LoadingScreen extends AbstractScreen {
     private static final Logger logger = LogManager.getLogger(MyClientGame.class);
 
+    private final AssetManager assetManager;
+
     public LoadingScreen(MyClientGame context) {
         super(context);
+
+        this.assetManager = context.getAssetManager();
+        assetManager.load("assets/maps/map.json", MyMap.class);
     }
 
     @Override
     public void show() {
-        Thread networkingThread = new DefaultThreadFactory().newThread(() -> {
-            ClientNetworkingHandler.getInstanceIfExists().connectToServer();
-        });
-        networkingThread.start();
+
     }
 
     public void onConnected(boolean success) {
@@ -37,6 +41,13 @@ public class LoadingScreen extends AbstractScreen {
     public void render(float delta) {
         viewport.apply();
         ScreenUtils.clear(0, 1, 0, 1);
+
+        if (assetManager.update()) {
+            Thread networkingThread = new DefaultThreadFactory().newThread(() -> {
+                ClientNetworkingHandler.getInstanceIfExists().connectToServer();
+            });
+            networkingThread.start();
+        }
     }
 
     @Override
@@ -52,10 +63,5 @@ public class LoadingScreen extends AbstractScreen {
     @Override
     public void hide() {
 
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
     }
 }

@@ -2,28 +2,40 @@ package com.hasanchik.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.hasanchik.game.MyClientGame;
+import com.hasanchik.game.map.MyMapRenderer;
 import com.hasanchik.game.networking.ClientNetworkingHandler;
 import com.hasanchik.game.utils.GDXDialogsFacade;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static com.hasanchik.shared.misc.Constants.BOX2D_UNIT_SCALE;
+
 public class GameScreen extends AbstractScreen {
     private static final Logger logger = LogManager.getLogger(GameScreen.class);
 
-    private final Box2DDebugRenderer box2DDebugRenderer;
+    private final Box2DDebugRenderer box2DDebugRenderer = new Box2DDebugRenderer();
+    private final MyMapRenderer myMapRenderer;
+
+    private final AssetManager assetManager;
+
+    private final OrthographicCamera camera;
 
     public GameScreen(MyClientGame context) {
         super(context);
-        box2DDebugRenderer = new Box2DDebugRenderer();
+        this.camera = context.getCamera();
+        this.myMapRenderer = new MyMapRenderer(camera, BOX2D_UNIT_SCALE, context.getSpriteBatch());
+        this.assetManager = context.getAssetManager();
         //Gdx.graphics.setWindowedMode(600,600);
     }
 
     @Override
     public void show() {
-
+        myMapRenderer.setMap(assetManager.get("assets/maps/map.json"));
     }
 
     public void onConnectionClosed() {
@@ -43,6 +55,9 @@ public class GameScreen extends AbstractScreen {
             context.setScreen(ScreenType.MAINMENU);
             ClientNetworkingHandler.getInstanceIfExists().closeConnection();
         }
+
+        myMapRenderer.setView(camera);
+        myMapRenderer.render();
     }
 
     @Override
@@ -63,6 +78,5 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void dispose() {
         box2DDebugRenderer.dispose();
-        super.dispose();
     }
 }

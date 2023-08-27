@@ -1,6 +1,11 @@
 package com.hasanchik.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -11,6 +16,8 @@ import com.hasanchik.game.networking.ClientNetworkingHandler;
 import com.hasanchik.game.screens.AbstractScreen;
 import com.hasanchik.game.screens.ScreenType;
 import com.hasanchik.shared.box2dutils.WorldHandler;
+import com.hasanchik.shared.map.MyMap;
+import com.hasanchik.shared.map.MyMapLoader;
 import com.hasanchik.shared.networking.Packets;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
@@ -18,15 +25,18 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.EnumMap;
 
-public class MyClientGame extends Game {
+@Getter
+public class MyClientGame extends Game implements Disposable {
 	private static final Logger logger = LogManager.getLogger(MyClientGame.class);
+
 	private EnumMap<ScreenType,AbstractScreen> screenCache;
-	@Getter
 	private Viewport viewport;
-	@Getter
+	private OrthographicCamera camera;
+	private SpriteBatch spriteBatch;
+
 	private WorldHandler worldHandler;
-	@Getter
 	private MyClientAshleyEngine engine;
+	private AssetManager assetManager;
 
 	private static MyClientGame instance;
 
@@ -37,9 +47,15 @@ public class MyClientGame extends Game {
 		instance = this;
 
 		screenCache = new EnumMap<>(ScreenType.class);
-		viewport = new FitViewport(9, 16);
+		camera = new OrthographicCamera();
+		viewport = new FitViewport(9, 16, camera);
+		spriteBatch = new SpriteBatch();
+
 		worldHandler = new WorldHandler(1 / 45f, false);
 		engine = new MyClientAshleyEngine(this, 1f / 30f);
+
+		assetManager = new AssetManager();
+		assetManager.setLoader(MyMap.class, new MyMapLoader(new InternalFileHandleResolver()));
 
 		ClientNetworkingHandler.getInstance(this, "192.168.2.14", 38442, 38443).init().run();
 		setScreen(ScreenType.MAINMENU);
@@ -83,6 +99,9 @@ public class MyClientGame extends Game {
 
 	@Override
 	public void dispose() {
+		worldHandler.dispose();
+		assetManager.dispose();
+
 		screenCache
 				.values()
 				.forEach(AbstractScreen::dispose);

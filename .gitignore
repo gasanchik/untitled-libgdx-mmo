@@ -23,4 +23,6 @@
 hs_err_pid*
 replay_pid*
 
-root folder/builds/builds/*
+astrovallium/builds/*
+astrovallium/shared/build/*
+astrovallium/client/core/build/*
