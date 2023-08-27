@@ -79,7 +79,8 @@ public class WorldHandler {
         ChainShape chainShape = new ChainShape();
         chainShape.createChain(new float[]{-0.5f, -0.7f, 0.5f, -0.7f});
         fixtureDef.shape = chainShape;
-        box2DBodyBuilder.addFixture(fixtureDef).finish();
+        box2DBodyBuilder.addFixture(fixtureDef);
+        box2DBodyBuilder.finish();
 
         Gson gson = Box2DBodyJsonSerializer.getGson();
         String json = gson.toJson(box2DBodyBuilder);
