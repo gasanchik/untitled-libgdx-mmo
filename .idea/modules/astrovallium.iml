@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="AdditionalModuleElements">
+    <content url="file://$MODULE_DIR$/../.." dumb="true">
+      <excludeFolder url="file://$MODULE_DIR$/../../builds" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-1-24am-27_08_2023/desktop/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-1-24am-27_08_2023/desktop/generated" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-1-24am-27_08_2023/desktop/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-1-24am-27_08_2023/desktop/resources/main/data" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-1-24am-27_08_2023/server-game/resources/main/assets" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-10-31pm-26_08_2023/desktop/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-10-31pm-26_08_2023/desktop/generated" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-10-31pm-26_08_2023/desktop/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-10-31pm-26_08_2023/desktop/resources/main/data" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-10-31pm-26_08_2023/server-game/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-10-31pm-26_08_2023/server-game/generated" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-10-31pm-26_08_2023/server-game/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-10-31pm-26_08_2023/server-game/resources/main/assets" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-8-17pm-26_08_2023/desktop/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-8-17pm-26_08_2023/desktop/generated" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-8-17pm-26_08_2023/desktop/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-8-17pm-26_08_2023/desktop/resources/main/data" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-8-17pm-26_08_2023/server-game/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-8-17pm-26_08_2023/server-game/generated" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-8-17pm-26_08_2023/server-game/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../builds/build-8-17pm-26_08_2023/server-game/resources/main/assets" />
+    </content>
+  </component>
+</module>

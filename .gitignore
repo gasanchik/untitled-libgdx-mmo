@@ -28,3 +28,4 @@ builds/
 shared/build/
 client/core/build/
 .gradle/
+.idea/
