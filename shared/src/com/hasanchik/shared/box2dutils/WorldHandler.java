@@ -5,12 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.google.gson.Gson;
 import com.hasanchik.shared.box2dutils.bodybuilders.Box2DBodyBuilder;
 import com.hasanchik.shared.box2dutils.bodybuilders.Box2DBodyBuilderDirector;
 import com.hasanchik.shared.ecs.Components;
 import com.hasanchik.shared.ecs.MyAshleyEngine;
 import com.hasanchik.shared.misc.BodyUserData;
 import com.hasanchik.shared.misc.FixedTimeStepExecutor;
+import com.hasanchik.shared.misc.serializers.Box2DBodyJsonSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
@@ -45,7 +47,7 @@ public class WorldHandler {
 
     private Body player;
 
-    private FixedTimeStepExecutor fixedTimeStepExecutor;
+    private final FixedTimeStepExecutor fixedTimeStepExecutor;
 
     public WorldHandler(Vector2 gravity, boolean doSleep, int velocityIterations, int positionIterations, float fixedTimeStep) {
         this.world = new World(gravity, doSleep);
@@ -67,7 +69,7 @@ public class WorldHandler {
     //grav = -9.81f
     public void createTestScene(MyAshleyEngine myAshleyEngine) {
         //Create a circle
-        Body body = putBodyInWorld(Box2DBodyBuilderDirector.getCircle(new Vector2(2.3f, 5), 3f));
+        Box2DBodyBuilder box2DBodyBuilder = Box2DBodyBuilderDirector.getCircle(new Vector2(2.3f, 5), 3f);
 
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0.5f;
@@ -77,16 +79,20 @@ public class WorldHandler {
         ChainShape chainShape = new ChainShape();
         chainShape.createChain(new float[]{-0.5f, -0.7f, 0.5f, -0.7f});
         fixtureDef.shape = chainShape;
-        body.createFixture(fixtureDef);
-        chainShape.dispose();
+        box2DBodyBuilder.addFixture(fixtureDef).finish();
+
+        Gson gson = Box2DBodyJsonSerializer.getGson();
+        String json = gson.toJson(box2DBodyBuilder);
+        box2DBodyBuilder = gson.fromJson(json, Box2DBodyBuilder.class);
 
         Entity entity = new Entity();
         Components.Box2DComponent box2DComponent = new Components.Box2DComponent();
-        box2DComponent.body = body;
+        //box2DComponent.body = body;
+        box2DComponent.box2DBodyBuilder = box2DBodyBuilder;
         entity.add(box2DComponent);
         myAshleyEngine.addEntity(entity);
 
-        body = putBodyInWorld(Box2DBodyBuilderDirector.getDefaultSquare());
+        Body body = putBodyInWorld(Box2DBodyBuilderDirector.getDefaultSquare());
         entity = new Entity();
         box2DComponent = new Components.Box2DComponent();
         box2DComponent.body = body;
@@ -205,10 +211,7 @@ public class WorldHandler {
     }
 
     public Body putBodyInWorld(int bodyID, Box2DBodyBuilder box2DBodyBuilder) {
-        Body body;
-        synchronized (world) {
-            body = box2DBodyBuilder.build(world);
-        }
+        Body body = box2DBodyBuilder.build(world);
         return putBodyInWorld(bodyID, body);
     }
 

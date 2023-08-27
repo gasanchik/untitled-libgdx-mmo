@@ -59,7 +59,7 @@ public abstract class MyAshleyEngine extends PooledEngine {
     }
 
     @Override
-    public void addEntity(Entity entity) {
+    public synchronized void addEntity(Entity entity) {
         int firstAvailableEntityID = -1;
         ArrayList<Entity> entityArrayList = map.getEntityArrayList();
         for (int i = 0; i < entityArrayList.size(); i++) {
@@ -81,7 +81,7 @@ public abstract class MyAshleyEngine extends PooledEngine {
         super.addEntity(entity);
     }
 
-    public void addEntity(int entityID, Entity entity) {
+    public synchronized void addEntity(int entityID, Entity entity) {
         Components.EntityComponent entityComponent = getEntityComponent(entity);
         entityComponent.entityID = entityID;
         entityComponent.layer = MapLayer.FOREGROUND;
@@ -92,5 +92,10 @@ public abstract class MyAshleyEngine extends PooledEngine {
             throw new IllegalArgumentException("Entity with entityID " + entityID + " already exists!");
         }
         super.addEntity(entity);
+    }
+
+    @Override
+    public synchronized void removeEntity(Entity entity) {
+        super.removeEntity(entity);
     }
 }

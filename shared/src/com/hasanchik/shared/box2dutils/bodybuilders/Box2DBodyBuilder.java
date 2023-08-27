@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.hasanchik.shared.misc.BodyUserData;
 import lombok.Getter;
+import lombok.ToString;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,24 +16,34 @@ import java.util.ArrayList;
 
 //Here's where my obsession with chained methods started
 @Getter
+@ToString
 public class Box2DBodyBuilder {
     private static final Logger logger = LogManager.getLogger(Box2DBodyBuilder.class);
 
     //TODO: Make a builder interface/abstract class
     //TODO: add support for joints
-    private BodyDef bodyDef = new BodyDef();
+    private final BodyDef bodyDef = new BodyDef();
     private BodyUserData userData;
-    private ArrayList<Box2DFixtureBuilder> fixtureBuilders = new ArrayList<>();
+    private final ArrayList<Box2DFixtureBuilder> fixtureBuilders = new ArrayList<>();
     private JointDef[] joints;
 
-    public Box2DBodyBuilder() {}
+    public Box2DBodyBuilder() {
+        setUserData(new BodyUserData());
+    }
 
     public Box2DFixtureBuilder addFixture() {
-        attachDefaultUserData();
         Box2DFixtureBuilder box2DFixtureBuilder = new Box2DFixtureBuilder(this);
         fixtureBuilders.add(box2DFixtureBuilder);
         return box2DFixtureBuilder;
     }
+
+    public Box2DFixtureBuilder addFixture(FixtureDef fixtureDef) {
+        Box2DFixtureBuilder box2DFixtureBuilder = new Box2DFixtureBuilder(this);
+        box2DFixtureBuilder.fromBox2DFixtureDef(fixtureDef);
+        fixtureBuilders.add(box2DFixtureBuilder);
+        return box2DFixtureBuilder;
+    }
+
 
     public Box2DBodyBuilder fromBox2DBody(Body body) {
         synchronized (body) {
@@ -59,29 +70,21 @@ public class Box2DBodyBuilder {
     }
 
     public Body build(World world) {
-        Body body = world.createBody(bodyDef);
-        body.setUserData(userData);
-        fixtureBuilders.stream().forEach(fixtureBuilder -> fixtureBuilder.build(body));
-        return body;
+        synchronized (world) {
+            Body body = world.createBody(bodyDef);
+            body.setUserData(userData);
+            fixtureBuilders.forEach(fixtureBuilder -> fixtureBuilder.build(body));
+            return body;
+        }
     }
 
     public Box2DBodyBuilder finish() {
-        fixtureBuilders.stream().forEach(fixtureBuilder -> fixtureBuilder.makeReadyForSerialization());
-        return this;
-    }
-
-    public Box2DBodyBuilder setBodyDef(BodyDef bodyDef) {
-        this.bodyDef = bodyDef;
+        fixtureBuilders.forEach(Box2DFixtureBuilder::makeReadyForSerialization);
         return this;
     }
 
     public Box2DBodyBuilder setUserData(BodyUserData userData) {
         this.userData = userData;
-        return this;
-    }
-
-    public Box2DBodyBuilder attachDefaultUserData() {
-        setUserData(new BodyUserData());
         return this;
     }
 

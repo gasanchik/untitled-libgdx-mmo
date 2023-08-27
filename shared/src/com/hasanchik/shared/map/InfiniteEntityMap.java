@@ -7,6 +7,8 @@ import com.hasanchik.shared.box2dutils.WorldHandler;
 import com.hasanchik.shared.ecs.ComponentMappers;
 import com.hasanchik.shared.ecs.Components;
 import lombok.Getter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +18,8 @@ import static com.hasanchik.shared.misc.Constants.MAX_ENTITIES;
 //A class that holds entities in an infinite space and multiple layers
 @Getter
 public class InfiniteEntityMap extends Map {
+    private static final Logger logger = LogManager.getLogger(InfiniteEntityMap.class);
+
     private final ArrayList<Entity> entityArrayList = new ArrayList<>(Collections.nCopies(MAX_ENTITIES, null));
     //Yes, i know, most of the indexes of these arraylists are null
     private final ArrayList<Entity>[] mapLayers = new ArrayList[MapLayer.values().length];

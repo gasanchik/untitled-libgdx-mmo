@@ -1,4 +1,4 @@
-package com.hasanchik.shared.networking.serializers;
+package com.hasanchik.shared.misc.serializers;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.ChainShape;
@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
 
 public interface Box2DShapeSerializer  {
     //TODO: implement all of the shapes
-    static final Logger logger = LogManager.getLogger(Box2DShapeSerializer.class);
+    Logger logger = LogManager.getLogger(Box2DShapeSerializer.class);
 
     class CircleShapeSerializer extends Serializer<CircleShape> implements Box2DShapeSerializer {
 
@@ -97,9 +97,9 @@ public interface Box2DShapeSerializer  {
             ChainShape chainShape = new ChainShape();
             chainShape.setRadius(kryo.readObject(input, float.class));
             if (kryo.readObject(input, boolean.class)) {
-                chainShape.createLoop(kryo.readObject(input, float[].class));;
+                chainShape.createLoop(kryo.readObject(input, float[].class));
             } else {
-                chainShape.createChain(kryo.readObject(input, float[].class));;
+                chainShape.createChain(kryo.readObject(input, float[].class));
             }
 
             return chainShape;

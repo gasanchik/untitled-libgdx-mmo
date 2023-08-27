@@ -1,4 +1,4 @@
-package com.hasanchik.shared.networking.serializers;
+package com.hasanchik.shared.misc.serializers;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
@@ -39,7 +39,7 @@ public class EntitySerializer extends Serializer<Entity> {
         }
 
         ArrayList<Component> components = new ArrayList<>();
-        entityClone.getComponents().forEach(component -> components.add(component));
+        entityClone.getComponents().forEach(components::add);
 
         kryo.writeObject(output, components);
     }
@@ -48,7 +48,7 @@ public class EntitySerializer extends Serializer<Entity> {
     public Entity read(Kryo kryo, Input input, Class<Entity> type) {
         Entity entity = new Entity();
         ArrayList<Component> components = kryo.readObject(input, ArrayList.class);
-        components.forEach(component -> entity.add(component));
+        components.forEach(entity::add);
 
         return entity;
     }

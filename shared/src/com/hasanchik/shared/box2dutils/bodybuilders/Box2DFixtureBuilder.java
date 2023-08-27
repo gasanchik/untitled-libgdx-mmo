@@ -34,11 +34,23 @@ public class Box2DFixtureBuilder {
                 .setFilterData(fixture.getFilterData());
     }
 
+    public Box2DFixtureBuilder fromBox2DFixtureDef(FixtureDef fixtureDef) {
+
+        return setShape(fixtureDef.shape)
+                .setFriction(fixtureDef.friction)
+                .setRestitution(fixtureDef.restitution)
+                .setDensity(fixtureDef.density)
+                .setIsSensor(fixtureDef.isSensor)
+                .setFilterData(fixtureDef.filter);
+    }
+
     public Fixture build(Body body) {
-        Fixture fixture = body.createFixture(fixtureDef);
-        fixture.setUserData(userData);
-        fixtureDef.shape.dispose();
-        return fixture;
+        synchronized (body) {
+            Fixture fixture = body.createFixture(fixtureDef);
+            fixture.setUserData(userData);
+            fixtureDef.shape.dispose();
+            return fixture;
+        }
     }
 
     public Box2DBodyBuilder finish() {
