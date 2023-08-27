@@ -27,3 +27,4 @@ replay_pid*
 builds/
 shared/build/
 client/core/build/
+.gradle/
