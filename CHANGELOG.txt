@@ -5,7 +5,7 @@ Number 3: minor updates
 Number 4: bugfixes/hotfixes/small changes
 
 When referencing methods and fields and inner classes, do it like so:
-Methods: Class#method()
+Methods: Class#Method
 Fields: Class#field
 Inner class:Class$InnerClass
 
