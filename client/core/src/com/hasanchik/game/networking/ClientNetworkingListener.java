@@ -35,7 +35,7 @@ public class ClientNetworkingListener extends Listener {
 
     @Setter
     private boolean tryingToConnect;
-    private WorldHandler worldHandler = MyClientGame.getInstance().getWorldHandler();
+    private WorldHandler worldHandler = MyClientGame.getInstance().getMap().getWorldHandler();
     public ClientNetworkingListener(MyClientGame context, ServerConnectedCallback serverConnectedCallback, ServerDisconnectedCallback serverDisconnectedCallback) {
         super();
         this.context = context;

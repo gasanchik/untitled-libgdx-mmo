@@ -3,6 +3,7 @@ package com.hasanchik.shared.ecs;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.esotericsoftware.kryonet.Connection;
 import com.hasanchik.shared.box2dutils.bodybuilders.Box2DBodyBuilder;
+import com.hasanchik.shared.map.MapLayer;
 import com.hasanchik.shared.networking.MyComponent;
 
 public interface Components {
@@ -38,21 +39,24 @@ public interface Components {
     //Component that every entity has
     class EntityComponent extends MyComponent {
         public int entityID = -1;
+        public MapLayer layer = null;
 
         public EntityComponent() {}
 
-        public EntityComponent(int entityID) {
+        public EntityComponent(int entityID, MapLayer mapLayer) {
             this.entityID = entityID;
+            this.layer = mapLayer;
         }
 
         @Override
         public void reset() {
             entityID = -1;
+            layer = null;
         }
 
         @Override
         public EntityComponent clone() {
-            return new EntityComponent(entityID);
+            return new EntityComponent(entityID, layer);
         }
     }
 

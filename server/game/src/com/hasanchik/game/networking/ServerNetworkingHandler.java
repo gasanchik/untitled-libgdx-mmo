@@ -111,7 +111,7 @@ public class ServerNetworkingHandler implements Runnable {
             GameRoomInstance gameRoomInstance = context.getGameRoom(gameRoomID);
 
             //TODO: Replace this with the bodymap
-            List<Entity> entityArrayList = gameRoomInstance.getEngine().getEntityArrayList();
+            List<Entity> entityArrayList = gameRoomInstance.getEngine().getMap().getEntityArrayList();
             synchronized (entityArrayList) {
                 entityArrayList.forEach(entity -> {
                     if (entity == null) {

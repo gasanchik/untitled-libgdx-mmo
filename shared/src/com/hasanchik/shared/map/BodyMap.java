@@ -1,4 +1,4 @@
-package com.hasanchik.shared.misc;
+package com.hasanchik.shared.map;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -141,15 +141,15 @@ public class BodyMap extends ConcurrentHashMap<Vector2, List<Body>> {
         }
     }
 
-    public boolean checkIfRefreshBody(Body body, boolean refreshStaticBodies) {
+    public boolean checkIfRefreshBody(Body body) {
         synchronized (body) {
             return (
                 body.isAwake() &&
-                        !(refreshStaticBodies && body.getType().equals(BodyDef.BodyType.StaticBody)));
+                        !body.getType().equals(BodyDef.BodyType.StaticBody));
         }
     }
 
-    public synchronized void refresh(World world, boolean refreshStaticBodies) {
+    public synchronized void refresh(World world) {
         if (this.size() > GARBAGE_COLLECT_EMPTY_LIST_THRESHOLD) {
             this.clear();
         }
@@ -164,7 +164,7 @@ public class BodyMap extends ConcurrentHashMap<Vector2, List<Body>> {
                     //Body is removed from world, but it's still somewhere in memory
                     return true;
                 }
-                return checkIfRefreshBody(body, refreshStaticBodies);
+                return checkIfRefreshBody(body);
             });
         });
 
@@ -172,7 +172,7 @@ public class BodyMap extends ConcurrentHashMap<Vector2, List<Body>> {
         synchronized (world) {
             world.getBodies(bodiesArray);
             bodiesArray
-                    .select(body -> body != null && checkIfRefreshBody(body, refreshStaticBodies))
+                    .select(body -> body != null && checkIfRefreshBody(body))
                     .forEach(this::rasterizeBodyIntoMap);
         }
     }

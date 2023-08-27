@@ -9,8 +9,8 @@ import com.hasanchik.shared.box2dutils.bodybuilders.Box2DBodyBuilder;
 import com.hasanchik.shared.box2dutils.bodybuilders.Box2DBodyBuilderDirector;
 import com.hasanchik.shared.ecs.Components;
 import com.hasanchik.shared.ecs.MyAshleyEngine;
-import com.hasanchik.shared.misc.BodyMap;
 import com.hasanchik.shared.misc.BodyUserData;
+import com.hasanchik.shared.misc.FixedTimeStepExecutor;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
@@ -25,10 +25,6 @@ import static com.hasanchik.shared.misc.Constants.MAX_ENTITIES;
 @Getter
 public class WorldHandler {
     private static final Logger logger = LogManager.getLogger(WorldHandler.class);
-
-    private final float fixedTimeStep;
-
-    private float accumulator;
 
     private final World world;
     private final WorldContactListener worldContactListener;
@@ -46,15 +42,12 @@ public class WorldHandler {
     //If I'm correct this is going to be called by three threads at once, which is the networking thread, the bodyReplication thread and the world updater thread
     //Use this list when iterating or getting bodies by ID
     private final List<Body> bodiesList = Collections.synchronizedList(new ArrayList<>(Collections.nCopies(MAX_ENTITIES, null)));
-    //Use this hashmap when getting things in an area or in a position
-    private final BodyMap bodyMap = new BodyMap(3f);
 
     private Body player;
-    private long lastUpdateTime = System.nanoTime();
 
-    private boolean refreshBodyMap = false;
+    private FixedTimeStepExecutor fixedTimeStepExecutor;
 
-    public WorldHandler(Vector2 gravity, boolean doSleep, int velocityIterations, int positionIterations, float fixedTimeStep, boolean refreshBodyMap) {
+    public WorldHandler(Vector2 gravity, boolean doSleep, int velocityIterations, int positionIterations, float fixedTimeStep) {
         this.world = new World(gravity, doSleep);
 
         this.currentGravity = gravity;
@@ -65,13 +58,11 @@ public class WorldHandler {
         this.worldContactListener = new WorldContactListener();
         world.setContactListener(worldContactListener);
 
-        this.fixedTimeStep = fixedTimeStep;
-
-        this.refreshBodyMap = refreshBodyMap;
+        this.fixedTimeStepExecutor = new FixedTimeStepExecutor(fixedTimeStep);
     }
 
-    public WorldHandler(float fixedTimeStep, boolean refreshBodyMap) {
-        this(new Vector2(0, -9.81f), true, 6, 2, fixedTimeStep, refreshBodyMap);
+    public WorldHandler(float fixedTimeStep) {
+        this(new Vector2(0, -9.81f), true, 6, 2, fixedTimeStep);
     }
     //grav = -9.81f
     public void createTestScene(MyAshleyEngine myAshleyEngine) {
@@ -134,7 +125,7 @@ public class WorldHandler {
         myAshleyEngine.addEntity(entity);
     }
 
-    public void step() {
+    public void update() {
         final float speedX;
         final float speedY;
 
@@ -168,23 +159,12 @@ public class WorldHandler {
             }
         }
 
-        long currentTime = System.nanoTime();
-        float deltaTime = (currentTime - lastUpdateTime) / 1_000_000_000f;
-        lastUpdateTime = currentTime;
 
-        //Fixed simulation timestep
-        accumulator += Math.min(0.25f, deltaTime);
-        while (accumulator >= fixedTimeStep) {
+        fixedTimeStepExecutor.update(deltaTime -> {
             synchronized (world) {
-                if (refreshBodyMap) {
-                    bodyMap.refresh(world, true);
-                }
                 world.step(deltaTime, velocityIterations, positionIterations);
             }
-            accumulator -= fixedTimeStep;
-        }
-
-        final float alpha = accumulator / fixedTimeStep;
+        });
     }
 
     public void dispose() {

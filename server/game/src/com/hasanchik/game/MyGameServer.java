@@ -69,7 +69,7 @@ public class MyGameServer extends Game {
                         box2DDebugRenderer.render(world, viewport.getCamera().combined);
                     }
                     shapeRenderer.begin();
-                    gameRoom.getWorldHandler().getBodyMap().drawSquares(shapeRenderer);
+                    gameRoom.getEngine().getMap().getBodyMap().drawSquares(shapeRenderer);
                     shapeRenderer.end();
                 });
     }

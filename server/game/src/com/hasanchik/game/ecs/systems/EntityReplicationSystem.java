@@ -9,10 +9,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.hasanchik.game.GameRoomInstance;
 import com.hasanchik.game.networking.ServerNetworkingHandler;
-import com.hasanchik.shared.box2dutils.WorldHandler;
 import com.hasanchik.shared.ecs.ComponentMappers;
 import com.hasanchik.shared.ecs.Components;
 import com.hasanchik.shared.ecs.ListenerPrioritySystem;
+import com.hasanchik.shared.map.MyMap;
 import com.hasanchik.shared.misc.BodyUserData;
 import com.hasanchik.shared.networking.Packets;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +28,7 @@ public class EntityReplicationSystem extends IntervalSystem implements ListenerP
 
     private final GameRoomInstance context;
     private final ServerNetworkingHandler serverNetworkingHandler;
-    private final WorldHandler worldHandler;
+    private final MyMap map;
 
     private List<Entity> entityList;
 
@@ -39,14 +39,14 @@ public class EntityReplicationSystem extends IntervalSystem implements ListenerP
         this.context = context;
 
         this.serverNetworkingHandler = context.getServerNetworkingHandler();
-        this.worldHandler = context.getWorldHandler();
+        this.map = context.getMap();
     }
 
     @Override
     protected void updateInterval() {
-        entityList = context.getEngine().getEntityArrayList();
+        entityList = context.getEngine().getMap().getEntityArrayList();
 
-        ArrayList<Body> bodiesList = worldHandler.getBodyMap().getBodiesInArea(new Rectangle(-4.5f/2, -8f/2, 9f/2, 16f/2));
+        ArrayList<Body> bodiesList = map.getBodyMap().getBodiesInArea(new Rectangle(-4.5f/2, -8f/2, 9f/2, 16f/2));
 
         bodiesList.forEach(body -> {
             synchronized (body) {
@@ -136,7 +136,7 @@ public class EntityReplicationSystem extends IntervalSystem implements ListenerP
     public void removeEntityFromWorldAndReplicateToClients(Entity entity) {
         Components.Box2DComponent box2DComponent = ComponentMappers.box2DComponentMapper.get(entity);
         if (box2DComponent != null) {
-            worldHandler.removeBodyFromWorld(box2DComponent.body);
+            map.getWorldHandler().removeBodyFromWorld(box2DComponent.body);
         }
 
         int entityID = ComponentMappers.entityComponentMapper.get(entity).entityID;

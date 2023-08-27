@@ -25,6 +25,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.EnumMap;
 
+import static com.hasanchik.shared.misc.Constants.ECS_UPDATES_PER_SECOND;
+import static com.hasanchik.shared.misc.Constants.PHYSICS_UPDATES_PER_SECOND;
+
 @Getter
 public class MyClientGame extends Game implements Disposable {
 	private static final Logger logger = LogManager.getLogger(MyClientGame.class);
@@ -34,7 +37,7 @@ public class MyClientGame extends Game implements Disposable {
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
 
-	private WorldHandler worldHandler;
+	private MyMap map;
 	private MyClientAshleyEngine engine;
 	private AssetManager assetManager;
 
@@ -51,8 +54,8 @@ public class MyClientGame extends Game implements Disposable {
 		viewport = new FitViewport(9, 16, camera);
 		spriteBatch = new SpriteBatch();
 
-		worldHandler = new WorldHandler(1 / 45f, false);
-		engine = new MyClientAshleyEngine(this, 1f / 30f);
+		map = new MyMap(new WorldHandler(PHYSICS_UPDATES_PER_SECOND));
+		engine = new MyClientAshleyEngine(this, ECS_UPDATES_PER_SECOND, map);
 
 		assetManager = new AssetManager();
 		assetManager.setLoader(MyMap.class, new MyMapLoader(new InternalFileHandleResolver()));
@@ -99,7 +102,7 @@ public class MyClientGame extends Game implements Disposable {
 
 	@Override
 	public void dispose() {
-		worldHandler.dispose();
+		map.dispose();
 		assetManager.dispose();
 
 		screenCache
