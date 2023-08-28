@@ -1,4 +1,4 @@
-package com.hasanchik.shared.ecs.Systems;
+package com.hasanchik.shared.ecs.systems;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -45,7 +45,7 @@ public class Box2DBodySystem extends EntitySystem implements ListenerPrioritySys
                             synchronized (body) {
                                 body.setUserData(new BodyUserData(entityID));
                             }
-                        } else if (body == null && box2DBodyBuilder == null) {
+                        } else if (body == null) {
                             throw new NullPointerException("Both box2DBodyBuilder and Body fields of the box2DComponent are null!");
                         }
                     }

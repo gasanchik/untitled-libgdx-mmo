@@ -19,6 +19,11 @@ public interface Components {
             this.body = body;
         }
 
+        public Box2DComponent(Body body, Box2DBodyBuilder box2DBodyBuilder) {
+            this.body = body;
+            this.box2DBodyBuilder = box2DBodyBuilder;
+        }
+
         @Override
         public void reset() {
             if (body == null) {
@@ -27,12 +32,11 @@ public interface Components {
 
             body.getWorld().destroyBody(body);
             body = null;
-
         }
 
         @Override
         public Box2DComponent clone() {
-            return new Box2DComponent(body);
+            return new Box2DComponent(body, box2DBodyBuilder);
         }
     }
 
@@ -40,6 +44,13 @@ public interface Components {
     class EntityComponent extends MyComponent {
         public int entityID = -1;
         public MapLayer layer = null;
+        //Instead of serializing and sending the full entity over the air, send a simple entity which (mostly) only contains the entityComponent
+        //and use a shared copy of the entity to still be synchronized.
+        //Only works if the properties of the entity haven't changed (too much)
+        //This is the index in the json file of that shared entity
+        //-1 means that it has changed too much to be synchronized
+        public int sharedEntityIndex = -1;
+
 
         public EntityComponent() {}
 

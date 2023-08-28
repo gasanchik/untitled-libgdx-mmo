@@ -12,13 +12,13 @@ public enum MapLayer {
     FOREGROUND(5),
     BEFOREGROUND_FOLIAGE(6);
 
-    private final int layer;
+    private final byte layer;
 
     MapLayer(int layer) {
-        this.layer = layer;
+        this.layer = (byte) layer;
     }
 
-    public static MapLayer getEnum(int layer) {
+    public static MapLayer getEnum(byte layer) {
         return MapLayer.values()[layer];
     }
 }

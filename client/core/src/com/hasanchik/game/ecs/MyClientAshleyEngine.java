@@ -2,7 +2,7 @@ package com.hasanchik.game.ecs;
 
 import com.hasanchik.game.MyClientGame;
 import com.hasanchik.shared.ecs.MyAshleyEngine;
-import com.hasanchik.shared.ecs.Systems.Box2DBodySystem;
+import com.hasanchik.shared.ecs.systems.Box2DBodySystem;
 import com.hasanchik.shared.map.InfiniteEntityMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -4,7 +4,7 @@ import com.hasanchik.game.GameRoomInstance;
 import com.hasanchik.game.ecs.systems.EntityReplicationSystem;
 import com.hasanchik.game.ecs.systems.PlayerSystem;
 import com.hasanchik.shared.ecs.MyAshleyEngine;
-import com.hasanchik.shared.ecs.Systems.Box2DBodySystem;
+import com.hasanchik.shared.ecs.systems.Box2DBodySystem;
 import com.hasanchik.shared.map.InfiniteEntityMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

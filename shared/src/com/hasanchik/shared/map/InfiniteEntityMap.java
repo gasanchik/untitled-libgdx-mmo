@@ -22,10 +22,10 @@ public class InfiniteEntityMap extends Map {
 
     private final ArrayList<Entity> entityArrayList = new ArrayList<>(Collections.nCopies(MAX_ENTITIES, null));
     //Yes, i know, most of the indexes of these arraylists are null
-    private final ArrayList<Entity>[] mapLayers = new ArrayList[MapLayer.values().length];
+    private transient final ArrayList<Entity>[] mapLayers = new ArrayList[MapLayer.values().length];
     //Use this hashmap when getting things in an area or in a position
-    private final BodyMap bodyMap = new BodyMap(3f);
-    private final WorldHandler worldHandler;
+    private transient final BodyMap bodyMap = new BodyMap(3f);
+    private transient final WorldHandler worldHandler;
 
     public InfiniteEntityMap(WorldHandler worldHandler) {
         this.worldHandler = worldHandler;

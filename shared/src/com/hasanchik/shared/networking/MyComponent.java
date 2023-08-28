@@ -4,8 +4,12 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Pool;
 
 public abstract class MyComponent implements Component, Cloneable, Pool.Poolable {
+    public MyComponent() {
+
+    }
+
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public MyComponent clone() {
+        return null;
     }
 }

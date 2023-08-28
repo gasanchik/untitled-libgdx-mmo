@@ -12,7 +12,7 @@ import com.hasanchik.shared.ecs.Components;
 import com.hasanchik.shared.ecs.MyAshleyEngine;
 import com.hasanchik.shared.misc.BodyUserData;
 import com.hasanchik.shared.misc.FixedTimeStepExecutor;
-import com.hasanchik.shared.misc.serializers.Box2DShapeJsonSerializer;
+import com.hasanchik.shared.misc.serializers.jsonserializers.EntityJsonSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
@@ -70,7 +70,6 @@ public class WorldHandler {
     public void createTestScene(MyAshleyEngine myAshleyEngine) {
         //Create a circle
         Box2DBodyBuilder box2DBodyBuilder = Box2DBodyBuilderDirector.getCircle(new Vector2(2.3f, 5), 3f);
-
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0.5f;
         fixtureDef.friction = 0.2f;
@@ -82,15 +81,16 @@ public class WorldHandler {
         box2DBodyBuilder.addFixture(fixtureDef);
         box2DBodyBuilder.finish();
 
-        Gson gson = Box2DShapeJsonSerializer.getGson();
-        String json = gson.toJson(box2DBodyBuilder);
-        logger.info(json);
-        box2DBodyBuilder = gson.fromJson(json, Box2DBodyBuilder.class);
-
         Entity entity = new Entity();
         Components.Box2DComponent box2DComponent = new Components.Box2DComponent();
         box2DComponent.box2DBodyBuilder = box2DBodyBuilder;
         entity.add(box2DComponent);
+
+        Gson gson = EntityJsonSerializer.getGsonBuilder().create();
+        String json = gson.toJson(entity);
+        logger.info(json);
+        entity = gson.fromJson(json, Entity.class);
+
         myAshleyEngine.addEntity(entity);
 
         Body body = putBodyInWorld(Box2DBodyBuilderDirector.getDefaultSquare());
